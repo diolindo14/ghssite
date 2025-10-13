@@ -2,17 +2,16 @@
 <html lang="pt">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Green Hard & Softh — Escola Superior de Informática</title>
 
   <!-- Fonts & icons -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-  <!-- If you don't have a kit, you can keep the CDN used before; or remove icons and rely on SVGs -->
 
   <style>
     /* ======================
-       Reset e variáveis
+       Variáveis e reset
        ====================== */
     :root{
       --bg: #f6f8fb;
@@ -44,9 +43,7 @@
     a{color:inherit;text-decoration:none}
     img{max-width:100%;display:block;height:auto}
 
-    /* ======================
-       Container & utilities
-       ====================== */
+    /* Container */
     .container{
       width:calc(100% - 2*var(--container-padding));
       max-width:var(--maxw);
@@ -57,9 +54,7 @@
     .col{flex:1 1 0}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 
-    /* ======================
-       Header / Nav (sticky)
-       ====================== */
+    /* Header / Nav (sticky) */
     header{
       position:sticky;top:0;z-index:1200;
       backdrop-filter: blur(6px);
@@ -69,6 +64,7 @@
     .topbar{
       display:flex;align-items:center;justify-content:space-between;
       gap:1rem;padding:0.7rem 0;
+      flex-wrap:wrap;
     }
     .brand{
       display:flex;align-items:center;gap:0.85rem;
@@ -97,9 +93,7 @@
       box-shadow:0 6px 18px rgba(2,6,23,0.06);
     }
 
-    /* ======================
-       Hero
-       ====================== */
+    /* Hero */
     .hero{
       padding:3.6rem 0 2.4rem;
       display:grid;align-items:center;gap:1.4rem;
@@ -127,11 +121,9 @@
         linear-gradient(135deg, rgba(0,168,107,0.08), rgba(7,32,58,0.06));
       display:grid;place-items:center;padding:1rem;border:1px solid rgba(7,32,58,0.03)
     }
-    .hero-ill svg{width:100%;height:100%;max-height:340px;opacity:0.95}
+    .hero-ill img{width:100%;height:auto;max-height:340px;opacity:0.95;border-radius:12px}
 
-    /* ======================
-       Sections
-       ====================== */
+    /* Sections */
     section{padding:3.2rem 0}
     .section-title{font-family:'Montserrat';font-size:1.2rem;margin:0 0 0.5rem;color:var(--navy)}
     .section-sub{color:var(--muted);margin:0 0 1.6rem;max-width:70ch}
@@ -210,11 +202,34 @@
       .section-sub{font-size:0.95rem}
     }
 
+    /* Mobile fixed tabs for quick navigation */
+    .mobile-tabs{
+      display:none;
+      position:sticky;
+      top:56px; /* below header */
+      z-index:1199;
+      background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95));
+      border-bottom:1px solid rgba(7,32,58,0.03);
+      overflow-x:auto;
+      white-space:nowrap;
+    }
+    .mobile-tabs .tab{
+      display:inline-block;padding:0.65rem 1rem;cursor:pointer;border:0;background:transparent;font-weight:700;color:var(--navy);
+    }
+    .mobile-tabs .tab.active{color:var(--accent);border-bottom:3px solid var(--accent);}
+
     /* small interactive touches */
     .fade-up{opacity:0;transform:translateY(8px);transition:var(--transition) 300ms}
     .fade-up.show{opacity:1;transform:translateY(0)}
     /* focus visible */
     :focus{outline:3px solid rgba(0,168,107,0.14);outline-offset:3px}
+
+    /* fix potential overlap from sticky mobile tabs */
+    @media(max-width:768px){
+      main{padding-top:56px} /* give space under header; mobile tabs are sticky over content anyway */
+      .hero{padding-top:1rem}
+      .mobile-tabs{display:block}
+    }
   </style>
 </head>
 <body>
@@ -275,8 +290,19 @@
     </div>
   </header>
 
-  <!-- HERO -->
+  <!-- Mobile quick tabs -->
+  <div class="mobile-tabs" role="tablist" aria-hidden="false">
+    <button class="tab active" data-target="#inicio">Início</button>
+    <button class="tab" data-target="#sobre">Sobre</button>
+    <button class="tab" data-target="#cursos">Cursos</button>
+    <button class="tab" data-target="#matricula">Matrícula</button>
+    <button class="tab" data-target="#horarios">Horários</button>
+    <button class="tab" data-target="#contactos">Contactos</button>
+  </div>
+
+  <!-- MAIN: todo o conteúdo original (mantido) -->
   <main>
+    <!-- HERO -->
     <section id="inicio" class="hero container" aria-labelledby="heroTitle">
       <div class="hero-grid">
         <div>
@@ -305,23 +331,6 @@
 
         <aside class="hero-ill" aria-hidden="true">
           <img src="ghs.jpg" alt="Logotipo Green Hard & Softh" style="max-width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.08)">
-          <!--<svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração de tecnologia">
-            <defs>
-              <linearGradient id="g1" x1="0" x2="1">
-                <stop offset="0" stop-color="#b8f0d6"/>
-                <stop offset="1" stop-color="#00a86b"/>
-              </linearGradient>
-            </defs>
-            <rect width="600" height="400" rx="14" fill="url(#g1)"/>
-            <g transform="translate(40,36)" fill="#fff" opacity="0.92">
-              <rect x="0" y="0" width="220" height="120" rx="10" fill="#04293a" opacity="0.06"></rect>
-              <g transform="translate(20,20)">
-                <rect x="0" y="0" width="180" height="18" rx="6" fill="#fff" opacity="0.12"/>
-                <rect x="0" y="34" width="120" height="14" rx="6" fill="#fff" opacity="0.12"/>
-                <rect x="0" y="66" width="140" height="10" rx="6" fill="#fff" opacity="0.08"/>
-              </g>
-            </g>
-          </svg>-->
         </aside>
       </div>
     </section>
@@ -373,7 +382,6 @@
                 É chegada a altura de abraçar a grandiosidade do agora.
 
                 Não espere que o futuro mude a sua vida — seja você a mudar a sua vida futura!
-              <!-- Mantive o texto original, se preferires completo aqui, posso colocá-lo por extenso -->
             </div>
           </details>
         </div>
@@ -597,54 +605,42 @@
               <div style="color:var(--muted)">+245 95 529 54 75</div>
             </div>
           </div>
-            <!-- Webhook incorporado -->
-  <!-- Botão flutuante para VALSA -->
-<style>
-  .valsa-btn {
-    position: fixed;
-    bottom: 24px;
-    right: 24px;
-    background: linear-gradient(135deg, #00a86b, #007a4f);
-    color: #fff;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    border: none;
-    border-radius: 50px;
-    padding: 12px 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: all 0.25s ease;
-    z-index: 9999;
-  }
 
-  .valsa-btn:hover {
-    background: linear-gradient(135deg, #00b97a, #00935e);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
-  }
+          <!-- Webhook incorporado -->
+          <!-- Botão flutuante para VALSA -->
+          <style>
+            /* minimal override kept local */
+            .valsa-btn {
+              position: fixed;
+              bottom: 24px;
+              right: 24px;
+              background: linear-gradient(135deg, #00a86b, #007a4f);
+              color: #fff;
+              font-family: 'Poppins', sans-serif;
+              font-weight: 600;
+              border: none;
+              border-radius: 50px;
+              padding: 12px 20px;
+              box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+              cursor: pointer;
+              text-decoration: none;
+              font-size: 0.95rem;
+              transition: all 0.25s ease;
+              z-index: 9999;
+            }
+            .valsa-btn:hover { transform: translateY(-3px); }
+          </style>
 
-  .valsa-btn i {
-    margin-right: 8px;
-  }
-</style>
+          <a
+            href="https://ghs-valsa.app.n8n.cloud/webhook/12fb753f-2377-4c38-bc63-bf3958900419/chat"
+            class="valsa-btn"
+            target="_blank"
+            title="Falar com a assistente virtual VALSA"
+          >
+            🤖 Falar com a VALSA
+          </a>
 
-<a
-  href="https://ghs-valsa.app.n8n.cloud/webhook/12fb753f-2377-4c38-bc63-bf3958900419/chat"
-  class="valsa-btn"
-  target="_blank"
-  title="Falar com a assistente virtual VALSA"
->
-  🤖 Falar com a VALSA
-</a>
-
-
-</body>
-</html>
-
-
-          <div class="contact-item">
+          <div class="contact-item" style="margin-top:1.2rem">
             <div class="contact-icon" aria-hidden="true"><i class="fas fa-envelope"></i></div>
             <div>
               <strong>Email</strong>
@@ -670,19 +666,19 @@
           </div>
         </aside>
       </div>
-    
-<form action="mailto:ghsespf@hotmail.com" method="post" enctype="text/plain" style="margin-top:1rem">
-  <label for="name"><strong>Nome:</strong></label><br>
-  <input type="text" id="name" name="Nome" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
 
-  <label for="email"><strong>Email:</strong></label><br>
-  <input type="email" id="email" name="Email" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
+      <form action="mailto:ghsespf@hotmail.com" method="post" enctype="text/plain" style="margin-top:1rem">
+        <label for="name"><strong>Nome:</strong></label><br>
+        <input type="text" id="name" name="Nome" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
 
-  <label for="message"><strong>Mensagem:</strong></label><br>
-  <textarea id="message" name="Mensagem" rows="5" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"></textarea><br><br>
+        <label for="email"><strong>Email:</strong></label><br>
+        <input type="email" id="email" name="Email" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"><br><br>
 
-  <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
-</form>
+        <label for="message"><strong>Mensagem:</strong></label><br>
+        <textarea id="message" name="Mensagem" rows="5" required style="width:100%;padding:8px;border-radius:8px;border:1px solid #ccc"></textarea><br><br>
+
+        <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+      </form>
 
     </section>
   </main>
@@ -718,7 +714,7 @@
           <p style="margin:0;color:#9fded0"><i class="fas fa-envelope"></i> ghsespf@hotmail.com</p>
         </div>
       </div>
-      
+
       <div style="text-align:center;margin-top:1.1rem;color:#a7d9cf;font-size:0.95rem">
         Direitos reservados © <span id="year"></span> Green Hard & Softh - Escola Superior de Informática
       </div>
@@ -742,7 +738,7 @@
       menuToggle.setAttribute('aria-expanded', String(!open));
     });
 
-    // Tabs logic (keyboard-friendly, WAI-ARIA)
+    // Tabs logic (keyboard-friendly, WAI-ARIA) - reuses your original markup
     const tabs = Array.from(document.querySelectorAll('.tab-btn'));
     const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 
@@ -754,13 +750,17 @@
         const panel = document.getElementById(target);
         if(panel){
           panel.hidden = !sel;
-          if(sel){ panel.classList.add('show'); panel.querySelectorAll('.subject').forEach(s=>s.classList.add('fade-up','show')) }
-          else{ panel.classList.remove('show'); }
+          if(sel){
+            panel.classList.add('show');
+            panel.querySelectorAll('.subject').forEach(s=>s.classList.add('fade-up','show'))
+          } else {
+            panel.classList.remove('show');
+          }
         }
       });
     }
     // default active already set in markup on first tab
-    activateTab(tabs[0]);
+    if(tabs.length) activateTab(tabs[0]);
 
     tabs.forEach((btn, idx) => {
       btn.addEventListener('click', () => activateTab(btn));
@@ -781,9 +781,12 @@
         const target = document.querySelector(href);
         if(target){
           e.preventDefault();
-          const headerOffset = 86; // estimated sticky header height
+          // compute offset: header height + mobile-tabs height (if visible)
+          const headerOffset = document.querySelector('header').offsetHeight || 86;
+          const mobileTabs = document.querySelector('.mobile-tabs');
+          const tabsOffset = (getComputedStyle(mobileTabs).display !== 'none') ? mobileTabs.offsetHeight : 0;
           const rect = target.getBoundingClientRect();
-          const offsetTop = window.pageYOffset + rect.top - headerOffset;
+          const offsetTop = window.pageYOffset + rect.top - headerOffset - tabsOffset;
           window.scrollTo({top: offsetTop, behavior:'smooth'});
           // if mobile menu open, close it
           if(getComputedStyle(mobileMenu).display === 'block'){
@@ -802,6 +805,52 @@
       });
     }, {threshold:0.12});
     document.querySelectorAll('.subject').forEach(el=>io.observe(el));
+
+    // Mobile quick tabs behavior
+    const mobileTabButtons = document.querySelectorAll('.mobile-tabs .tab');
+    mobileTabButtons.forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        mobileTabButtons.forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        const targetSelector = btn.getAttribute('data-target');
+        const target = document.querySelector(targetSelector);
+        if(target){
+          const headerOffset = document.querySelector('header').offsetHeight || 86;
+          const tabsOffset = document.querySelector('.mobile-tabs').offsetHeight || 0;
+          const rect = target.getBoundingClientRect();
+          const offsetTop = window.pageYOffset + rect.top - headerOffset - tabsOffset;
+          window.scrollTo({top: offsetTop, behavior:'smooth'});
+        }
+      });
+    });
+
+    // Keep mobile tab active based on scroll position (basic)
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+    window.addEventListener('scroll', ()=>{
+      const fromTop = window.scrollY + (document.querySelector('header').offsetHeight || 86) + (document.querySelector('.mobile-tabs').offsetHeight || 0) + 8;
+      let currentId = null;
+      for (let i=0;i<sections.length;i++){
+        const sec = sections[i];
+        if(sec.offsetTop <= fromTop) currentId = sec.id;
+      }
+      if(currentId){
+        mobileTabButtons.forEach(b=>{
+          b.classList.toggle('active', b.getAttribute('data-target') === ('#' + currentId));
+        });
+      }
+    });
+
+    // close mobile menu if clicking outside (optional small enhancement)
+    document.addEventListener('click', (e)=>{
+      if(window.innerWidth < 720){
+        if(!e.target.closest('#mobileMenu') && !e.target.closest('#menuToggle')){
+          if(getComputedStyle(mobileMenu).display === 'block'){
+            mobileMenu.style.display = 'none';
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+      }
+    });
   </script>
 </body>
 </html>
